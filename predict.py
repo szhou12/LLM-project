@@ -69,10 +69,10 @@ def predict(model_name):
 if __name__ == "__main__":
 
     all_results = []
-    
+
     for model_name in list(CHECKPOINTS.keys()):
         all_results += predict(model_name)
     
     res = {'results': all_results}
-    with open('output/results.json', 'w') as f:
+    with open('result/results.json', 'w') as f:
         json.dump(res, f, indent=4)
