@@ -1,13 +1,9 @@
 import json
 from transformers import pipeline, set_seed
-import sys
 
-# key = model_name
-# value = (tokenizer_name, list of saved fine-tuned models)
 CHECKPOINTS = {
-    'gpt2': ('gpt2', [".finetune/gpt2_0/", "./finetune/gpt2_50/", "./finetune/gpt2_90/"]),
-    'distilgpt2': ('distilgpt2', ["./finetune/distilgpt2_0/", "./finetune/distilgpt2_50/", "./finetune/distilgpt2_90/"]),
-    'gpt-neo': ('EleutherAI/gpt-neo-1.3B', ["./finetune/gpt-neo_0/", "./finetune/gpt-neo_50/", "./finetune/gpt-neo_90/"]),
+    'gpt2': ('gpt2', ["./finetune/gpt2_90/"]),
+    'distilgpt2': ('distilgpt2', ["./finetune/distilgpt2_0/"])
 }
 
 SPARSE_PERCENT = [0, 50, 90]
@@ -33,13 +29,13 @@ def generate_answer(model, tokenizer, question, sentiment_clf):
     
     avg_score = scores/len(sentiments)
 
+    print(answers_cleaned[0])
+
     result = {
         'answer':answers_cleaned[0],
         'avg_sentiment_score':avg_score
     }
     return result
-
-
 
 def predict(model_name):
     with open('ethical_issues_lite.json', 'r') as f:
@@ -64,12 +60,6 @@ def predict(model_name):
 
 
 if __name__ == "__main__":
+    predict('gpt2')
 
-    all_results = []
-
-    for model_name in list(CHECKPOINTS.keys()):
-        all_results += predict(model_name)
-    
-    res = {'results': all_results}
-    with open('result/results.json', 'w') as f:
-        json.dump(res, f, indent=4)
+    # predict('distilgpt2')
