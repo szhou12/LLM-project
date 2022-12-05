@@ -74,7 +74,7 @@ def fine_tune(model_name):
         )
 
         trainer.train()
-        # trainer.save(f'finetune/{model_name}_{SPARSE_PERCENT[idx]}')
+        trainer.save_model(f'finetune/{model_name}_{SPARSE_PERCENT[idx]}')
 
 
 
