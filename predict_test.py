@@ -2,8 +2,8 @@ import json
 from transformers import pipeline, set_seed
 
 CHECKPOINTS = {
-    'gpt2': ('gpt2', ["gpt2"]),
-    'distilgpt2': ("./finetune/distilgpt2_0/", ["./finetune/distilgpt2_0/"])
+    'gpt2': ["./finetune/gpt2_90/"],
+    'distilgpt2': ["./finetune/distilgpt2_0/"]
 }
 
 SPARSE_PERCENT = [0, 50, 90]
@@ -46,9 +46,9 @@ def predict(model_name):
     result = []
     for topic, questions in ethical_issues.items():
         for question in questions:
-            tokenizer_checkpoint, model_checkpoint_list = CHECKPOINTS[model_name]
+            model_checkpoint_list = CHECKPOINTS[model_name]
             for idx, model_checkpoint in enumerate(model_checkpoint_list):
-                answer = generate_answer(model_checkpoint, tokenizer_checkpoint, question, sentiment_clf)
+                answer = generate_answer(model_checkpoint, model_checkpoint_list, question, sentiment_clf)
                 answer['model'] = model_name
                 answer['sparsity'] = SPARSE_PERCENT[idx]
                 answer['topic'] = topic
@@ -60,6 +60,6 @@ def predict(model_name):
 
 
 if __name__ == "__main__":
-    # predict('gpt2')
+    predict('gpt2')
 
-    predict('distilgpt2')
+    # predict('distilgpt2')

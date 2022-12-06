@@ -5,9 +5,9 @@ import sys
 # key = model_name
 # value = (tokenizer_name, list of saved fine-tuned models)
 CHECKPOINTS = {
-    'gpt2': ('gpt2', ["gpt2"]),
-    'distilgpt2': ('distilgpt2', ["distilgpt2"]),
-    'gpt-neo': ('EleutherAI/gpt-neo-1.3B', ["EleutherAI/gpt-neo-1.3B"]),
+    'gpt2': ["gpt2"],
+    'distilgpt2': ["distilgpt2"],
+    'gpt-neo': ["EleutherAI/gpt-neo-1.3B"],
 }
 
 
@@ -50,9 +50,9 @@ def predict(model_name):
     result = []
     for topic, questions in ethical_issues.items():
         for question in questions:
-            tokenizer_checkpoint, model_checkpoint_list = CHECKPOINTS[model_name]
+            model_checkpoint_list = CHECKPOINTS[model_name]
             for idx, model_checkpoint in enumerate(model_checkpoint_list):
-                answer = generate_answer(model_checkpoint, tokenizer_checkpoint, question, sentiment_clf)
+                answer = generate_answer(model_checkpoint, model_checkpoint, question, sentiment_clf)
                 answer['model'] = model_name
                 answer['sparsity'] = 0
                 answer['topic'] = topic

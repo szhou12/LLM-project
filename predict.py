@@ -5,8 +5,8 @@ import sys
 # key = model_name
 # value = (tokenizer_name, list of saved fine-tuned models)
 CHECKPOINTS = {
-    'gpt2': ('gpt2', ["./finetune/gpt2_0/", "./finetune/gpt2_50/", "./finetune/gpt2_90/"]),
-    'distilgpt2': ('distilgpt2', ["./finetune/distilgpt2_0/", "./finetune/distilgpt2_50/", "./finetune/distilgpt2_90/"]),
+    'gpt2': ["./finetune/gpt2_0/", "./finetune/gpt2_50/", "./finetune/gpt2_90/"],
+    'distilgpt2': ["./finetune/distilgpt2_0/", "./finetune/distilgpt2_50/", "./finetune/distilgpt2_90/"],
     # 'gpt-neo': ('EleutherAI/gpt-neo-1.3B', ["EleutherAI/gpt-neo-1.3B", "./finetune/gpt-neo_0/", "./finetune/gpt-neo_50/", "./finetune/gpt-neo_90/"]),
 }
 
@@ -52,9 +52,9 @@ def predict(model_name):
     result = []
     for topic, questions in ethical_issues.items():
         for question in questions:
-            tokenizer_checkpoint, model_checkpoint_list = CHECKPOINTS[model_name]
+            model_checkpoint_list = CHECKPOINTS[model_name]
             for idx, model_checkpoint in enumerate(model_checkpoint_list):
-                answer = generate_answer(model_checkpoint, tokenizer_checkpoint, question, sentiment_clf)
+                answer = generate_answer(model_checkpoint, model_checkpoint_list, question, sentiment_clf)
                 answer['model'] = model_name
                 answer['sparsity'] = SPARSE_PERCENT[idx]
                 answer['topic'] = topic
