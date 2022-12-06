@@ -59,7 +59,7 @@ def fine_tune(model_name):
 
         training_args = TrainingArguments(
             output_dir=f'output/{model_name}_{SPARSE_PERCENT[idx]}/',
-            per_device_train_batch_size=8,
+            per_device_train_batch_size=8, # smaller, less likely to cause out of memory
             per_device_eval_batch_size=8,
             # num_train_epochs = 1,
         )

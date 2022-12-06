@@ -1,11 +1,30 @@
 import streamlit as st
 import argparse
 import time
+from transformers import pipeline, set_seed
+import os
+
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
+@st.cache(allow_output_mutation=True)
+def get_model():
+    text_generator = pipeline('text-generation', model='gpt2')
+    return text_generator
+
+model = get_model()
+
+def generate_answer(model, topic, context):
+    question = f'{topic}: {context}'
+    set_seed(42)
+    answers = model(question, max_length=128, num_return_sequences=1)
+    answers_cleaned = [ans['generated_text'].replace(question, '') for ans in answers]
+    first_answer = answers_cleaned[0].strip()
+    return first_answer
 
 def run():
     st.markdown(
         """
-        ## GPT Model
+        ## GPT Model: Q & A App
         """
     )
 
@@ -21,18 +40,18 @@ def run():
     parser.add_argument('--top_k', default=top_k, type=float, help='')
     parser.add_argument('--top_p', default=top_p, type=float, help='')
     parser.add_argument('--temperature', default=temperature, type=float, help='')
-    parser.add_argument('--max_len', default=512, type=int, help='')
+    parser.add_argument('--max_len', default=128, type=int, help='')
     args = parser.parse_args()
 
-    title = st.text_area('Enter Title:', max_chars=512)
-    context = st.text_area('Enter Context:', max_chars=512)
+    title = st.text_area('Enter Topic:', max_chars=512)
+    context = st.text_area('Enter Question:', max_chars=512)
 
     if st.button('Submit'):
         start_message = st.empty()
         start_message.write('Processing...')
         start_time = time.time()
         # Call pre-trained model
-        result = 'placeholder'
+        result = generate_answer(model, title, context)
         end_time = time.time()
         start_message.write(f'Finished in {end_time-start_time}s')
         st.text_area('Result:', value=result, key=None)
