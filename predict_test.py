@@ -44,7 +44,7 @@ def predict(model_name):
     sentiment_clf = pipeline('sentiment-analysis')
 
     result = []
-    for topic, questions in enumerate(ethical_issues):
+    for topic, questions in ethical_issues.items():
         for question in questions:
             tokenizer_checkpoint, model_checkpoint_list = CHECKPOINTS[model_name]
             for idx, model_checkpoint in enumerate(model_checkpoint_list):
@@ -60,6 +60,6 @@ def predict(model_name):
 
 
 if __name__ == "__main__":
-    predict('gpt2')
+    # predict('gpt2')
 
-    # predict('distilgpt2')
+    predict('distilgpt2')
