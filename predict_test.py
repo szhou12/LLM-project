@@ -60,6 +60,6 @@ def predict(model_name):
 
 
 if __name__ == "__main__":
-    # predict('gpt2')
+    predict('gpt2')
 
-    predict('distilgpt2')
+    # predict('distilgpt2')
