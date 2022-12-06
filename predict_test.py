@@ -29,7 +29,7 @@ def generate_answer(model, tokenizer, question, sentiment_clf):
     
     avg_score = scores/len(sentiments)
     print(question)
-    # print(answers_cleaned[0])
+    print(answers_cleaned[0])
 
     result = {
         'answer':answers_cleaned[0],
