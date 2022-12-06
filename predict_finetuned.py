@@ -66,11 +66,13 @@ def predict(model_name):
 
 if __name__ == "__main__":
 
-    all_results = []
+    # all_results = []
 
     for model_name in list(CHECKPOINTS.keys()):
-        all_results += predict(model_name)
-    
-    res = {'results': all_results}
-    with open('result/results_finetuned.json', 'w') as f:
-        json.dump(res, f, indent=4)
+        result = predict(model_name)
+        with open(f'result/results_finetuned_{model_name}.json', 'w') as f:
+            json.dump(result, f, indent=4)
+
+    # res = {'results': all_results}
+    # with open('result/results_finetuned.json', 'w') as f:
+    #     json.dump(res, f, indent=4)
