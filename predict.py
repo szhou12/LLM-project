@@ -5,12 +5,14 @@ import sys
 # key = model_name
 # value = (tokenizer_name, list of saved fine-tuned models)
 CHECKPOINTS = {
-    'gpt2': ('gpt2', [".finetune/gpt2_0/", "./finetune/gpt2_50/", "./finetune/gpt2_90/"]),
-    'distilgpt2': ('distilgpt2', ["./finetune/distilgpt2_0/", "./finetune/distilgpt2_50/", "./finetune/distilgpt2_90/"]),
-    'gpt-neo': ('EleutherAI/gpt-neo-1.3B', ["./finetune/gpt-neo_0/", "./finetune/gpt-neo_50/", "./finetune/gpt-neo_90/"]),
+    'gpt2': ('gpt2', ["gpt2", ".finetune/gpt2_0/", "./finetune/gpt2_50/", "./finetune/gpt2_90/"]),
+    'distilgpt2': ('distilgpt2', ["distilgpt2", "./finetune/distilgpt2_0/", "./finetune/distilgpt2_50/", "./finetune/distilgpt2_90/"]),
+    # 'gpt-neo': ('EleutherAI/gpt-neo-1.3B', ["EleutherAI/gpt-neo-1.3B", "./finetune/gpt-neo_0/", "./finetune/gpt-neo_50/", "./finetune/gpt-neo_90/"]),
 }
 
-SPARSE_PERCENT = [0, 50, 90]
+# -1 means no fine-tuning
+SPARSE_PERCENT = [-1, 0, 50, 90]
+
 
 def generate_answer(model, tokenizer, question, sentiment_clf):
     '''
