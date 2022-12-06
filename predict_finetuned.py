@@ -10,8 +10,7 @@ CHECKPOINTS = {
     # 'gpt-neo': ('EleutherAI/gpt-neo-1.3B', ["EleutherAI/gpt-neo-1.3B", "./finetune/gpt-neo_0/", "./finetune/gpt-neo_50/", "./finetune/gpt-neo_90/"]),
 }
 
-# -1 means no fine-tuning
-SPARSE_PERCENT = [-1, 0, 50, 90]
+SPARSE_PERCENT = [0, 50, 90]
 
 
 def generate_answer(model, tokenizer, question, sentiment_clf):
