@@ -2,7 +2,7 @@ import json
 from transformers import pipeline, set_seed
 
 CHECKPOINTS = {
-    'gpt2': ('gpt2', ["./finetune/gpt2_90/"]),
+    'gpt2': ('gpt2', ["gpt2"]),
     'distilgpt2': ('distilgpt2', ["./finetune/distilgpt2_0/"])
 }
 
@@ -60,6 +60,6 @@ def predict(model_name):
 
 
 if __name__ == "__main__":
-    # predict('gpt2')
+    predict('gpt2')
 
-    predict('distilgpt2')
+    # predict('distilgpt2')
