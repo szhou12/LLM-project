@@ -1,3 +1,5 @@
 #!/bin/sh
 
-python predict.py
+python predict_finetuned.py
+
+python predict_pretrained.py
