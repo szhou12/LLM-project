@@ -28,7 +28,7 @@ def generate_answer(model, tokenizer, question, sentiment_clf):
         scores += s['score'] if label == 'POSITIVE' else 1-s['score']
     
     avg_score = scores/len(sentiments)
-
+    print(question)
     print(answers_cleaned[0])
 
     result = {
