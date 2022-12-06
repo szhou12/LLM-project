@@ -91,4 +91,4 @@ def save_gpt_neo():
 if __name__ == "__main__":
     save_distilgpt2()
     save_gpt2()
-    save_gpt_neo()
+    # save_gpt_neo()
