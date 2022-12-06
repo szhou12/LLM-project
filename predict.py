@@ -5,8 +5,8 @@ import sys
 # key = model_name
 # value = (tokenizer_name, list of saved fine-tuned models)
 CHECKPOINTS = {
-    'gpt2': ('gpt2', ["gpt2", "./finetune/gpt2_0/", "./finetune/gpt2_50/", "./finetune/gpt2_90/"]),
-    'distilgpt2': ('distilgpt2', ["distilgpt2", "./finetune/distilgpt2_0/", "./finetune/distilgpt2_50/", "./finetune/distilgpt2_90/"]),
+    'gpt2': ('gpt2', ["./finetune/gpt2_0/", "./finetune/gpt2_50/", "./finetune/gpt2_90/"]),
+    'distilgpt2': ('distilgpt2', ["./finetune/distilgpt2_0/", "./finetune/distilgpt2_50/", "./finetune/distilgpt2_90/"]),
     # 'gpt-neo': ('EleutherAI/gpt-neo-1.3B', ["EleutherAI/gpt-neo-1.3B", "./finetune/gpt-neo_0/", "./finetune/gpt-neo_50/", "./finetune/gpt-neo_90/"]),
 }
 
@@ -22,7 +22,7 @@ def generate_answer(model, tokenizer, question, sentiment_clf):
     # STEP 1
     text_generator = pipeline('text-generation', model=model, tokenizer=tokenizer)
     set_seed(42)
-    answers = text_generator(question, max_length=128, num_return_sequences=5)
+    answers = text_generator(question, max_length=128, num_return_sequences=3)
     answers_cleaned = [ans['generated_text'].replace(question, '') for ans in answers]
 
     # STEP 2
@@ -73,5 +73,5 @@ if __name__ == "__main__":
         all_results += predict(model_name)
     
     res = {'results': all_results}
-    with open('result/results.json', 'w') as f:
+    with open('result/results_finetuned.json', 'w') as f:
         json.dump(res, f, indent=4)
