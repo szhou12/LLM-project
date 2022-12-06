@@ -16,7 +16,7 @@ def generate_answer(model, tokenizer, question, sentiment_clf):
     # STEP 1
     text_generator = pipeline('text-generation', model=model, tokenizer=tokenizer)
     set_seed(42)
-    answers = text_generator(question, max_length=128, num_return_sequences=5)
+    answers = text_generator(question, max_length=128, num_return_sequences=3)
     answers_cleaned = [ans['generated_text'].replace(question, '') for ans in answers]
 
     # STEP 2
@@ -48,7 +48,7 @@ def predict(model_name):
         for question in questions:
             model_checkpoint_list = CHECKPOINTS[model_name]
             for idx, model_checkpoint in enumerate(model_checkpoint_list):
-                answer = generate_answer(model_checkpoint, model_checkpoint_list, question, sentiment_clf)
+                answer = generate_answer(model_checkpoint, model_checkpoint, question, sentiment_clf)
                 answer['model'] = model_name
                 answer['sparsity'] = SPARSE_PERCENT[idx]
                 answer['topic'] = topic

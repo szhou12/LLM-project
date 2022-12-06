@@ -54,7 +54,7 @@ def predict(model_name):
         for question in questions:
             model_checkpoint_list = CHECKPOINTS[model_name]
             for idx, model_checkpoint in enumerate(model_checkpoint_list):
-                answer = generate_answer(model_checkpoint, model_checkpoint_list, question, sentiment_clf)
+                answer = generate_answer(model_checkpoint, model_checkpoint, question, sentiment_clf)
                 answer['model'] = model_name
                 answer['sparsity'] = SPARSE_PERCENT[idx]
                 answer['topic'] = topic
