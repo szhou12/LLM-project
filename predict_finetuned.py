@@ -22,7 +22,7 @@ def generate_answer(model, tokenizer, question, sentiment_clf):
     # STEP 1
     text_generator = pipeline('text-generation', model=model, tokenizer=tokenizer)
     set_seed(42)
-    answers = text_generator(question, max_length=128, num_return_sequences=3)
+    answers = text_generator(question, max_length=128, num_return_sequences=1)
     answers_cleaned = [ans['generated_text'].replace(question, '') for ans in answers]
 
     # STEP 2
