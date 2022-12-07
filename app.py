@@ -2,9 +2,9 @@ import streamlit as st
 import argparse
 import time
 from transformers import pipeline, set_seed
-import os
 
-os.environ['KMP_DUPLICATE_LIB_OK']='True'
+# import os
+# os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 @st.cache(allow_output_mutation=True)
 def get_model():
@@ -50,8 +50,12 @@ def run():
         start_message = st.empty()
         start_message.write('Processing...')
         start_time = time.time()
+
         # Call pre-trained model
+        # model = pipeline('text-generation', model='gpt2')
         result = generate_answer(model, title, context)
+        
+        result = 'hi'
         end_time = time.time()
         start_message.write(f'Finished in {end_time-start_time}s')
         st.text_area('Result:', value=result, key=None)
